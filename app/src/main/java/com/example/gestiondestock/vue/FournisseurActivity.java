@@ -37,7 +37,7 @@ public class FournisseurActivity extends AppCompatActivity {
 
             TextView tv = new TextView(this);
             tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            tv.setText("hello world numero"+i);
+            tv.setText("fournisseur numero"+i);
             lv2.addView(tv);
 
         }

@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         ecouteFournisseur();
         ecouteInventaire();
         ecouteTransaction();
+        addFournisseur();
+        addArticle();
     }
     public void ecouteInventaire(){
         ((ImageView) findViewById(R.id.inventaire)).setOnClickListener(new Button.OnClickListener(){
@@ -52,6 +54,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public void addFournisseur(){
+        ((ImageView) findViewById(R.id.addFournisseur)).setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, AddFournisseurActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public void addArticle(){
+        ((ImageView) findViewById(R.id.addArticle)).setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, AddArticleActivity.class);
                 startActivity(intent);
             }
         });
