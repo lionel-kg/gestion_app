@@ -4,6 +4,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,68 +15,115 @@ import android.widget.LinearLayout;
 import android.widget.Toolbar;
 
 import com.example.gestiondestock.R;
+import com.example.gestiondestock.controleur.Controle;
 
 public class MainActivity extends AppCompatActivity {
+
+    //private Controle controle;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-
+        openBd();
+        //this.controle = Controle.getInstance(this);
     }
 
-    public void init(){
+    public void init() {
         ecouteFournisseur();
         ecouteInventaire();
         ecouteTransaction();
         addFournisseur();
         addArticle();
     }
-    public void ecouteInventaire(){
-        ((ImageView) findViewById(R.id.inventaire)).setOnClickListener(new Button.OnClickListener(){
+
+    public void ecouteInventaire() {
+        ((ImageView) findViewById(R.id.inventaire)).setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, InventaireActivity.class);
                 startActivity(intent);
             }
         });
     }
-    public void ecouteFournisseur(){
-        ((ImageView) findViewById(R.id.fournisseur)).setOnClickListener(new Button.OnClickListener(){
+
+    public void ecouteFournisseur() {
+        ((ImageView) findViewById(R.id.fournisseur)).setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FournisseurActivity.class);
                 startActivity(intent);
             }
         });
     }
-    public void ecouteTransaction(){
-        ((ImageView) findViewById(R.id.transaction)).setOnClickListener(new Button.OnClickListener(){
+
+    public void ecouteTransaction() {
+        ((ImageView) findViewById(R.id.transaction)).setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
                 startActivity(intent);
             }
         });
     }
-    public void addFournisseur(){
-        ((ImageView) findViewById(R.id.addFournisseur)).setOnClickListener(new Button.OnClickListener(){
+
+    public void addFournisseur() {
+        ((ImageView) findViewById(R.id.addFournisseur)).setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddFournisseurActivity.class);
                 startActivity(intent);
             }
         });
     }
-    public void addArticle(){
-        ((ImageView) findViewById(R.id.addArticle)).setOnClickListener(new Button.OnClickListener(){
+
+    public void addArticle() {
+        ((ImageView) findViewById(R.id.addArticle)).setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddArticleActivity.class);
                 startActivity(intent);
             }
         });
     }
 
+    public void openBd() {
+        try {
+            db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+
+            db.execSQL("create table magasinier("
+                    + "idMagasinier INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "nomMagasinier TEXT NOT NULL,"
+                    + "prenomMagasinier TEXT NOT NULL,"
+                    + "telMagasinier INTEGER,"
+                    + "adresseMagasinier TEXT,"
+                    + "cpMagasinier INTEGER,"
+                    + "villeMagasinier TEXT)");
+
+            db.execSQL("create table article("
+                    + "idArticle INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "libArticle TEXT NOT NULL,"
+                    + "qteArticle INTEGER NOT NULL,"
+                    + "description TEXT,"
+                    + "image TEXT,"
+                    + "stockMin INTEGER NOT NULL,"
+                    + "stockMax INTEGER NOT NULL,"
+                    + "prix INTEGER NOT NULL)");
+
+            db.execSQL("create table fournisseur("
+                    + "idFournisseur INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "nomFournisseur TEXT NOT NULL,"
+                    + "prenomFournisseur TEXT NOT NULL,"
+                    + "telFournisseur INTEGER,"
+                    + "emailFournisseur TEXT,"
+                    + "adresseFournisseur TEXT,"
+                    + "cpFournisseur INTEGER,"
+                    + "villeFournisseur TEXT,"
+                    + "description TEXT)");
+        } catch (SQLException e) {
+        }
+
+    }
 }

@@ -20,10 +20,21 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/nom"
+                android:id="@+id/nomFour"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="nom"></EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="368dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/prenomFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="prenom"></EditText>
         </LinearLayout>
 
         <LinearLayout
@@ -32,7 +43,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/adresse"
+                android:id="@+id/adresseFour"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="adresse"></EditText>
@@ -44,7 +55,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/emailFour"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="E-mail"></EditText>
@@ -56,10 +67,21 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/tel"
+                android:id="@+id/telFour"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="téléphone"></EditText>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="368dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/cpFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="code postal"></EditText>
         </LinearLayout>
 
         <LinearLayout
@@ -68,13 +90,26 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/desc"
+                android:id="@+id/villeFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="ville"></EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="368dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/descFour"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="description"></EditText>
         </LinearLayout>
 
         <Button
+            android:id="@+id/submitFour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50pt"

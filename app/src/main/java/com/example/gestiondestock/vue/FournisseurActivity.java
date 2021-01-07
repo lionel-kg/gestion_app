@@ -2,6 +2,10 @@ package com.example.gestiondestock.vue;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.gestiondestock.R;
+
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -9,15 +13,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FournisseurActivity extends AppCompatActivity {
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fournisseur);
-        createLinearView();
+        try {
+            db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+            showFournisseur();
+        } catch (
+        SQLException e) {
+        }
     }
-
-    public void createLinearView(){
+    public void createLinearView(String nom,Integer id){
         LinearLayout lv = ((LinearLayout) findViewById(R.id.container));
         int txt = lv.getOrientation();
         String txt2 = String.valueOf(txt);
@@ -26,22 +35,32 @@ public class FournisseurActivity extends AppCompatActivity {
         t.show();
         LinearLayout lv2 =  new LinearLayout(this);
         LinearLayout lh = new LinearLayout(this);
-        for(int i = 0; i < 8;i++){
-            lv2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,1));
-            lv2.setOrientation(LinearLayout.VERTICAL);
-            lv2.setGravity(LinearLayout.HORIZONTAL|LinearLayout.VERTICAL);
+        lv2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,1));
+        lv2.setOrientation(LinearLayout.VERTICAL);
+        lv2.setGravity(LinearLayout.HORIZONTAL|LinearLayout.VERTICAL);
 
-            lh.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,1));
-            lh.setOrientation(LinearLayout.HORIZONTAL);
-            lh.setGravity(LinearLayout.HORIZONTAL|LinearLayout.VERTICAL);
-
-            TextView tv = new TextView(this);
-            tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            tv.setText("fournisseur numero"+i);
-            lv2.addView(tv);
-
+        lh.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,1));
+        lh.setOrientation(LinearLayout.VERTICAL);
+        lh.setGravity(LinearLayout.HORIZONTAL|LinearLayout.VERTICAL);
+        TextView tv = new TextView(this);
+        tv.setId(id);
+        tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+        tv.setText(nom);
+        String idTv = String.valueOf(tv.getId());
+        Toast.makeText(this,idTv,Toast.LENGTH_SHORT).show();
+        //lv2.addView(tv);
+        //lh.addView(tv);
+        lv.addView(tv);
+    }
+    public void showFournisseur(){
+        Cursor c=db.rawQuery("SELECT * FROM fournisseur",null);
+        c.moveToFirst();
+        while(!c.isAfterLast())
+        {
+            createLinearView(c.getString(1),c.getInt(0));
+            c.moveToNext();
         }
-        lh.addView(lv2);
-        lv.addView(lh);
+        c.close();
+
     }
 }

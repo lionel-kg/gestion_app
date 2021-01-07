@@ -96,20 +96,14 @@
                 android:id="@+id/buttonChoose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select" />
+                android:text="Select image" />
 
-            <EditText
-                android:id="@+id/editTextName"
-                android:hint="Name For Image"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/buttonUpload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload" />
+                android:text="valider" />
 
         </LinearLayout>
 
@@ -118,12 +112,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50pt"
-            android:layout_marginTop="30px"
-            android:text="valider"></Button>
     </LinearLayout>
 
 

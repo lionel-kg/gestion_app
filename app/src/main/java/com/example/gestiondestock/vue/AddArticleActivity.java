@@ -63,7 +63,7 @@ public class AddArticleActivity extends AppCompatActivity {
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
         imageView = (ImageView) findViewById(R.id.imageView);
-        editText = (EditText) findViewById(R.id.editTextName);
+
 
         //Setting clicklistener
         select();
@@ -75,8 +75,6 @@ public class AddArticleActivity extends AppCompatActivity {
      * We need the full image path and the name for the image in this method
      * */
     public void uploadMultipart() {
-        //getting name for the image
-        String name = editText.getText().toString().trim();
 
         //getting the actual path of the image
         String path = getPath(filePath);
@@ -88,7 +86,6 @@ public class AddArticleActivity extends AppCompatActivity {
             //Creating a multi part request
             new MultipartUploadRequest(this, uploadId, Constants.UPLOAD_URL)
                     .addFileToUpload(path, "image") //Adding file
-                    .addParameter("name", name) //Adding text parameter to the request
                     .setNotificationConfig(new UploadNotificationConfig())
                     .setMaxRetries(2)
                     .startUpload(); //Starting the upload
