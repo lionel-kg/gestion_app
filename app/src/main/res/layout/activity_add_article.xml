@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/nom"
+                android:id="@+id/lib"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="nom"></EditText>
@@ -71,7 +71,7 @@
                 android:id="@+id/stockMax"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="description"></EditText>
+                android:hint="stockmax"></EditText>
         </LinearLayout>
         <LinearLayout
             android:layout_width="368dp"
@@ -110,7 +110,8 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
 
     </LinearLayout>
 

@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".vue.FournisseurActivity">
-    <LinearLayout
+
+
+    <ListView
+        android:id="@+id/listViewFour"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" >
+    </ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

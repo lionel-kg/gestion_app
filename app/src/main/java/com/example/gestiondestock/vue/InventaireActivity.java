@@ -3,47 +3,32 @@ package com.example.gestiondestock.vue;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.gestiondestock.R;
-import com.example.gestiondestock.controleur.Controle;
-import com.example.gestiondestock.modele.AccesLocal;
 
+import com.example.gestiondestock.modele.Article;
+import com.example.gestiondestock.modele.CustomListAdapter;
+
+import android.annotation.SuppressLint;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.AsyncTask;
-import android.text.TextUtils;
-import android.widget.ArrayAdapter;
+
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class InventaireActivity extends AppCompatActivity {
 
     //ListView listView;
     SQLiteDatabase db;
-    private Controle controle;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventaire);
-        this.controle = Controle.getInstance(this);
-
-        }
+    List<Article> articles = new ArrayList<Article>();
         /*
         listView = (ListView) findViewById(R.id.listView);
         try {
@@ -53,6 +38,49 @@ public class InventaireActivity extends AppCompatActivity {
         }
         downloadJSON("http://localhost/php/testDb.php");
          */
+
+
+    private String[] prenoms = new String[]{
+            "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
+            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
+            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
+            "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
+            "Yann", "Zoé"
+    };
+
+    @SuppressLint("WrongConstant")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_inventaire);
+
+        try {
+            db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+            showArticle();
+        } catch (SQLException e)
+        {
+        }
+        ListView listView = (ListView)findViewById(R.id.listView);
+
+        //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
+        //Contenant une TextView avec comme identifiant "@android:id/text1"
+
+        /*final ArrayAdapter<Article> adapter = new ArrayAdapter<Article>(InventaireActivity.this,
+                android.R.layout.simple_list_item_1, articles);*/
+        listView.setAdapter(new CustomListAdapter(this,articles));
+    }
+
+    public void showArticle(){
+        Cursor c=db.rawQuery("SELECT * FROM Article",null);
+        c.moveToFirst();
+        while(!c.isAfterLast())
+        {
+            Article article = new Article(c.getString(1),c.getInt(2),c.getString(3),c.getString(4),c.getInt(5),c.getInt(6),c.getInt(7));
+            articles.add(article);
+            c.moveToNext();
+        }
+        c.close();
+    }
 }
 
     /*

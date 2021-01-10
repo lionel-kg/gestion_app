@@ -80,4 +80,9 @@ public class Article {
     public void setPrix(int prix) {
         this.prix = prix;
     }
+
+    @Override
+    public String toString(){
+        return this.lib_article +" "+ this.qteArticle;
+    }
 }

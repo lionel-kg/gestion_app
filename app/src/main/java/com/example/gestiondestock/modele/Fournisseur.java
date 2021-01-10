@@ -3,37 +3,59 @@ package com.example.gestiondestock.modele;
 public class Fournisseur {
 
     private int idFournisseur;
-    private String NomFournisseur;
-    private String TelFournisseur;
+    private String nomFournisseur;
+    private String prenomFournisseur;
+    private String emailFournisseur;
+    private int telFournisseur;
     private String adresseFournisseur;
-    private String cpFournisseur;
+    private int cpFournisseur;
     private String villeFournisseur;
+    private String description;
 
-    public Fournisseur(String nomFournisseur, String telFournisseur, String adresseFournisseur, String cpFournisseur, String villeFournisseur) {
-        NomFournisseur = nomFournisseur;
-        TelFournisseur = telFournisseur;
+    public Fournisseur(String nomFournisseur, String prenomFournisseur, int telFournisseur, String emailFournisseur, String adresseFournisseur, int cpFournisseur, String villeFournisseur, String description) {
+        this.nomFournisseur = nomFournisseur;
+        this.prenomFournisseur = prenomFournisseur;
+        this.telFournisseur = telFournisseur;
+        this.emailFournisseur = emailFournisseur;
         this.adresseFournisseur = adresseFournisseur;
         this.cpFournisseur = cpFournisseur;
         this.villeFournisseur = villeFournisseur;
+        this.description = description;
     }
     public int getIdFournisseur() {
         return idFournisseur;
     }
 
     public String getNomFournisseur() {
-        return NomFournisseur;
+        return nomFournisseur;
     }
 
     public void setNomFournisseur(String nomFournisseur) {
-        NomFournisseur = nomFournisseur;
+        this.nomFournisseur = nomFournisseur;
     }
 
-    public String getTelFournisseur() {
-        return TelFournisseur;
+    public String getPrenomFournisseur() {
+        return prenomFournisseur;
     }
 
-    public void setTelFournisseur(String telFournisseur) {
-        TelFournisseur = telFournisseur;
+    public void setPrenomFournisseur(String prenomFournisseur) {
+        this.prenomFournisseur = prenomFournisseur;
+    }
+
+    public String getEmailFournisseur() {
+        return emailFournisseur;
+    }
+
+    public void setEmailFournisseur(String emailFournisseur) {
+        this.emailFournisseur = emailFournisseur;
+    }
+
+    public int getTelFournisseur() {
+        return telFournisseur;
+    }
+
+    public void setTelFournisseur(int telFournisseur) {
+        this.telFournisseur = telFournisseur;
     }
 
     public String getAdresseFournisseur() {
@@ -44,20 +66,33 @@ public class Fournisseur {
         this.adresseFournisseur = adresseFournisseur;
     }
 
-    public String getCpFournisseur() {
+    public int getCpFournisseur() {
         return cpFournisseur;
     }
 
-    public void setCpFournisseur(String cpFournisseur) {
+    public void setCpFournisseur(int cpFournisseur) {
         this.cpFournisseur = cpFournisseur;
     }
 
-    public String getVillelFournisseur() {
+    public String getVilleFournisseur() {
         return villeFournisseur;
     }
 
-    public void setVillelFournisseur(String villeFournisseur) {
+    public void setVilleFournisseur(String villeFournisseur) {
         this.villeFournisseur = villeFournisseur;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString(){
+        return this.nomFournisseur;
     }
 
 

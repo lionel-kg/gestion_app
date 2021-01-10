@@ -18,9 +18,6 @@ public class AddFournisseurActivity extends AppCompatActivity {
 
     SQLiteDatabase db;
 
-
-
-
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +46,6 @@ public class AddFournisseurActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.submitFour)).setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 ContentValues values = new ContentValues();
-
                 values.put("nomFournisseur", nom.getText().toString());
                 values.put("prenomFournisseur", prenom.getText().toString());
                 values.put("emailFournisseur", email.getText().toString());

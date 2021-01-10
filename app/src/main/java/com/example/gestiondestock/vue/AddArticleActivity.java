@@ -1,9 +1,13 @@
 package com.example.gestiondestock.vue;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,7 +38,7 @@ class Constants {
 }
 
 public class AddArticleActivity extends AppCompatActivity {
-
+    SQLiteDatabase db;
     private Button buttonChoose;
     private Button buttonUpload;
     private ImageView imageView;
@@ -52,6 +56,7 @@ public class AddArticleActivity extends AppCompatActivity {
     //Uri to store the image uri
     private Uri filePath;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,16 +69,25 @@ public class AddArticleActivity extends AppCompatActivity {
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
         imageView = (ImageView) findViewById(R.id.imageView);
 
+        try {
+            db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+
+            add();
+        } catch (SQLException e)
+        {
+        }
 
         //Setting clicklistener
         select();
         upload();
+
     }
 
     /*
      * This is the method responsible for image upload
      * We need the full image path and the name for the image in this method
      * */
+
     public void uploadMultipart() {
 
         //getting the actual path of the image
@@ -183,11 +197,47 @@ public class AddArticleActivity extends AppCompatActivity {
         });
     }
 
-    public void upload() {
+   public void upload() {
         ((Button) findViewById(R.id.buttonUpload)).setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadMultipart();
+//                uploadMultipart();
+                add();
+            }
+        });
+    }
+
+    public void add(){
+        EditText lib = (EditText) findViewById(R.id.lib);
+        EditText qte = (EditText) findViewById(R.id.quantité);
+        //ImageView image = (ImageView) findViewById(R.id.imageView);
+        EditText stockmin = (EditText) findViewById(R.id.stockMin);
+        EditText stockmax = (EditText) findViewById(R.id.stockMax);
+        EditText prix = (EditText) findViewById(R.id.prix);
+        EditText description = (EditText) findViewById(R.id.description);
+
+
+
+        ((Button) findViewById(R.id.buttonUpload)).setOnClickListener(new Button.OnClickListener(){
+            public void onClick(View v){
+                ContentValues values = new ContentValues();
+
+                values.put("libArticle", lib.getText().toString());
+                values.put("qteArticle", qte.getText().toString());
+                values.put("description", description.getText().toString());
+                //values.put("image", filePath.getPath());
+                values.put("stockMin", stockmin.getText().toString());
+                values.put("stockMax", stockmax.getText().toString());
+                values.put("prix", prix.getText().toString());
+
+                if((db.insert("article", null, values))!=-1)
+                {
+                    Toast.makeText(AddArticleActivity.this, "Record Successfully Inserted", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(AddArticleActivity.this, "Insert Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
