@@ -294,7 +294,7 @@ public class AddArticleActivity extends AppCompatActivity {
                     {
                         Toast.makeText(AddArticleActivity.this, "Record Successfully Inserted", Toast.LENGTH_SHORT).show();
                         uploadPicture();
-                        Intent intent = new Intent(AddArticleActivity.this, InventaireActivity.class);
+                        Intent intent = new Intent(AddArticleActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                     else

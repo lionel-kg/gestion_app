@@ -59,7 +59,7 @@ public class AddFournisseurActivity extends AppCompatActivity {
                 if((db.insert("fournisseur", null, values))!=-1)
                 {
                     Toast.makeText(AddFournisseurActivity.this, "Record Successfully Inserted", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddFournisseurActivity.this, FournisseurActivity.class);
+                    Intent intent = new Intent(AddFournisseurActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
                 else
