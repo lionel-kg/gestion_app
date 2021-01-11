@@ -2,6 +2,7 @@ package com.example.gestiondestock.vue;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -58,6 +59,8 @@ public class AddFournisseurActivity extends AppCompatActivity {
                 if((db.insert("fournisseur", null, values))!=-1)
                 {
                     Toast.makeText(AddFournisseurActivity.this, "Record Successfully Inserted", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AddFournisseurActivity.this, FournisseurActivity.class);
+                    startActivity(intent);
                 }
                 else
                 {

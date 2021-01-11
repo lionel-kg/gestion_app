@@ -1,5 +1,9 @@
 package com.example.gestiondestock.modele;
 
+import android.net.Uri;
+
+import java.net.URI;
+
 public class Article {
 
 

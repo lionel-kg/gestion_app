@@ -3,6 +3,7 @@ package com.example.gestiondestock.vue;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ecouteTransaction();
         addFournisseur();
         addArticle();
+        suppArticle();
     }
 
     public void ecouteInventaire() {
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * ajout d'un fournisseur
+     */
     public void addFournisseur() {
         ((ImageView) findViewById(R.id.addFournisseur)).setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -79,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * ajout d'un article
+     */
     public void addArticle() {
         ((ImageView) findViewById(R.id.addArticle)).setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -89,6 +97,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * suppression d'un article
+     */
+    public void suppArticle() {
+        ((ImageView) findViewById(R.id.suppArticle)).setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.delete("article",null,null);
+            }
+        });
+    }
+
+    /**
+     * acces à la base de données
+     */
+    @SuppressLint("WrongConstant")
     public void openBd() {
         try {
             db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);

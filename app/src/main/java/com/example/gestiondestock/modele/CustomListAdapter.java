@@ -45,7 +45,7 @@ public class CustomListAdapter  extends BaseAdapter {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_layout, null);
             holder = new ViewHolder();
-            //holder.imgProduit = (ImageView) convertView.findViewById(R.id.imgProduit);
+            holder.imgProduit = (ImageView) convertView.findViewById(R.id.imageView_flag);
             holder.libView = (TextView) convertView.findViewById(R.id.textView_lib);
             holder.qteView = (TextView) convertView.findViewById(R.id.textView_qte);
             convertView.setTag(holder);
@@ -54,12 +54,13 @@ public class CustomListAdapter  extends BaseAdapter {
         }
 
         Article article = this.listData.get(position);
+
         holder.libView.setText(article.getLib_article());
         holder.qteView.setText("qte: " + article.getQteArticle());
 
         //int imageId = this.getMipmapResIdByName(article.getImage());
 
-        //holder.imgProduit.setImageResource(imageId);
+        //holder.imgProduit.setImageBitmap(article.getImage());
 
         return convertView;
     }
@@ -74,7 +75,7 @@ public class CustomListAdapter  extends BaseAdapter {
     }*/
 
     static class ViewHolder {
-        //ImageView imgProduit;
+        ImageView imgProduit;
         TextView qteView;
         TextView libView;
     }

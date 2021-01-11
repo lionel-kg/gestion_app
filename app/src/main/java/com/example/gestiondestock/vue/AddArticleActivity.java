@@ -1,60 +1,56 @@
 package com.example.gestiondestock.vue;
 
-import android.Manifest;
+
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.SyncStateContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.example.gestiondestock.R;
-
-import net.gotev.uploadservice.MultipartUploadRequest;
-import net.gotev.uploadservice.UploadNotificationConfig;
-
-import java.io.IOException;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import java.util.UUID;
 
-class Constants {
-    public static final String UPLOAD_URL = "http://192.168.94.1/AndroidImageUpload/upload.php";
-    public static final String IMAGES_URL = "http://192.168.94.1/AndroidImageUpload/getImages.php";
-}
 
 public class AddArticleActivity extends AppCompatActivity {
     SQLiteDatabase db;
     private Button buttonChoose;
     private Button buttonUpload;
     private ImageView imageView;
+    //init firebaseStorage
+    private FirebaseStorage storage;
+    //init storage reference
+    private StorageReference storageReference;
+
     private EditText editText;
 
     //Image request code
-    private int PICK_IMAGE_REQUEST = 1;
+    //private int PICK_IMAGE_REQUEST = 1;
 
     //storage permission code
-    private static final int STORAGE_PERMISSION_CODE = 123;
+    //private static final int STORAGE_PERMISSION_CODE = 123;
 
     //Bitmap to get image from gallery
-    private Bitmap bitmap;
+    //private Bitmap bitmap;
 
     //Uri to store the image uri
-    private Uri filePath;
+    private Uri imageUri;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -62,12 +58,14 @@ public class AddArticleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_article);
 
-        requestStoragePermission();
+        //requestStoragePermission();
 
         //Initializing views
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
         imageView = (ImageView) findViewById(R.id.imageView);
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         try {
             db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
@@ -76,18 +74,81 @@ public class AddArticleActivity extends AppCompatActivity {
         } catch (SQLException e)
         {
         }
-
+        buttonChoose.setOnClickListener(new View.OnClickListener(){
+            /**
+             * Called when a view has been clicked.
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                choosePicture();
+            }
+        });
         //Setting clicklistener
-        select();
-        upload();
+        //select();
+        //upload();
 
+    }
+
+    private void choosePicture() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,1);
+    }
+
+    /**
+     * Dispatch incoming result to the correct fragment.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+
+        }
+    }
+
+    private void uploadPicture() {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setTitle("Uploading image");
+        pd.show();
+        //final String randomKey = UUID.randomUUID().toString();
+        StorageReference riversRef = storageReference.child(imageUri.getPath());
+        riversRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        pd.dismiss();
+                        Snackbar.make(findViewById(android.R.id.content),"image Uploaded.",Snackbar.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        pd.dismiss();
+                        Toast.makeText(getApplicationContext(),"Failed To Upload",Toast.LENGTH_LONG).show();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double progressPercent = (100.00*taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                pd.setMessage("percentage: " + (int) progressPercent +"%");
+            }
+        });
     }
 
     /*
      * This is the method responsible for image upload
      * We need the full image path and the name for the image in this method
      * */
-
+/*
     public void uploadMultipart() {
 
         //getting the actual path of the image
@@ -122,7 +183,6 @@ public class AddArticleActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
@@ -206,7 +266,7 @@ public class AddArticleActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
     public void add(){
         EditText lib = (EditText) findViewById(R.id.lib);
         EditText qte = (EditText) findViewById(R.id.quantité);
@@ -222,17 +282,25 @@ public class AddArticleActivity extends AppCompatActivity {
             public void onClick(View v){
                 ContentValues values = new ContentValues();
 
-                values.put("libArticle", lib.getText().toString());
-                values.put("qteArticle", qte.getText().toString());
-                values.put("description", description.getText().toString());
-                //values.put("image", filePath.getPath());
-                values.put("stockMin", stockmin.getText().toString());
-                values.put("stockMax", stockmax.getText().toString());
-                values.put("prix", prix.getText().toString());
-
-                if((db.insert("article", null, values))!=-1)
-                {
-                    Toast.makeText(AddArticleActivity.this, "Record Successfully Inserted", Toast.LENGTH_SHORT).show();
+                if(lib.getText().toString() != "") {
+                    values.put("libArticle", lib.getText().toString());
+                    values.put("qteArticle", qte.getText().toString());
+                    values.put("description", description.getText().toString());
+                    values.put("image", imageUri.getPath());
+                    values.put("stockMin", stockmin.getText().toString());
+                    values.put("stockMax", stockmax.getText().toString());
+                    values.put("prix", prix.getText().toString());
+                    if((db.insert("article", null, values))!=-1)
+                    {
+                        Toast.makeText(AddArticleActivity.this, "Record Successfully Inserted", Toast.LENGTH_SHORT).show();
+                        uploadPicture();
+                        Intent intent = new Intent(AddArticleActivity.this, InventaireActivity.class);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(AddArticleActivity.this, "Insert Error", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
