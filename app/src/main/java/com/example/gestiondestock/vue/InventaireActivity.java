@@ -13,10 +13,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -49,10 +50,14 @@ public class InventaireActivity extends AppCompatActivity {
         try {
             db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
             showArticle();
+
         } catch (SQLException e)
         {
         }
         ListView listView = (ListView)findViewById(R.id.listView);
+
+       // delete();
+
 
         //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
         //Contenant une TextView avec comme identifiant "@android:id/text1"
@@ -60,7 +65,14 @@ public class InventaireActivity extends AppCompatActivity {
         /*final ArrayAdapter<Article> adapter = new ArrayAdapter<Article>(InventaireActivity.this,
                 android.R.layout.simple_list_item_1, articles);*/
         listView.setAdapter(new CustomListAdapter(this,articles));
+
+        //Toast.makeText(InventaireActivity.this,listView.getItemIdAtPosition(1),Toast.LENGTH_SHORT);
     }
+
+
+    /*public void delete(int id){
+        db.delete("article","id ="+id,null);
+    }*/
 
     public void showArticle(){
         Cursor c=db.rawQuery("SELECT * FROM Article",null);

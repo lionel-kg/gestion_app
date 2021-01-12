@@ -1,6 +1,8 @@
 package com.example.gestiondestock.modele;
 
 import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ public class CustomListAdapter  extends BaseAdapter {
     private List<Article> listData;
     private LayoutInflater layoutInflater;
     private Context context;
+    SQLiteDatabase db;
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private StorageReference storageReference = firebaseStorage.getReference();
 
@@ -63,9 +67,10 @@ public class CustomListAdapter  extends BaseAdapter {
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_layout, null);
             holder = new ViewHolder();
-            holder.imgProduit = (ImageView) convertView.findViewById(R.id.imageView_flag);
+            holder.imgProduit = (ImageView) convertView.findViewById(R.id.imageView_produit);
             holder.libView = (TextView) convertView.findViewById(R.id.textView_lib);
             holder.qteView = (TextView) convertView.findViewById(R.id.textView_qte);
+            holder.delete = (Button) convertView.findViewById(R.id.delete);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -73,6 +78,19 @@ public class CustomListAdapter  extends BaseAdapter {
         Article article = this.listData.get(position);
         holder.libView.setText(article.getLib_article());
         holder.qteView.setText("qte: " + article.getQteArticle());
+
+        try {
+            //db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+            holder.delete.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    db.delete("article","id ="+article.getId_article(),null);
+                }
+            });
+        } catch (
+                SQLException e) {
+        }
+
         //int imageId = this.getMipmapResIdByName(article.getImage());
 
         StorageReference first = storageReference.child(article.getImage());
@@ -100,7 +118,10 @@ public class CustomListAdapter  extends BaseAdapter {
         ImageView imgProduit;
         TextView qteView;
         TextView libView;
+        Button delete;
     }
+
+
 // Find Image ID corresponding to the name of the image (in the directory mipmap).
     /*public int getMipmapResIdByName(String resName)  {
         String pkgName = context.getPackageName();

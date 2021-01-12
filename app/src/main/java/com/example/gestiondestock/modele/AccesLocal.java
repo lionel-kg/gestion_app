@@ -3,18 +3,27 @@ package com.example.gestiondestock.modele;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import androidx.annotation.IntegerRes;
+
 import com.example.gestiondestock.outils.MySqlLiteOpenHelper;
 
 import java.util.Date;
 
 public class AccesLocal {
-    private String nomBase = "gestion";
+    private String nomBase = "gestion_app";
     private Integer versionBase = 1;
     private MySqlLiteOpenHelper accesBD;
     private SQLiteDatabase bd;
 
     public AccesLocal(Context contexte){
         accesBD = new MySqlLiteOpenHelper(contexte,nomBase,null,versionBase);
+    }
+
+
+    public void delete(int id){
+        bd = accesBD.getWritableDatabase();
+        bd.delete("article","libArticle ="+id,null);
     }
 }
     /**
