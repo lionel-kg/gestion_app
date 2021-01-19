@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".vue.TransactionActivity">
-    <TextView
+    <ImageView
+        android:id="@+id/testLoad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="welcome transaction activity"/>
+        >
+    </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,9 @@
 package com.example.gestiondestock.modele;
 
+import android.net.Uri;
+
+import java.net.URI;
+
 public class Article {
 
     //propriétés
@@ -150,5 +154,10 @@ public class Article {
      */
     public void setPrix(int prix) {
         this.prix = prix;
+    }
+
+    @Override
+    public String toString(){
+        return this.lib_article +" "+ this.qteArticle;
     }
 }
