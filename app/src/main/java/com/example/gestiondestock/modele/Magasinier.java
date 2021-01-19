@@ -1,6 +1,8 @@
 package com.example.gestiondestock.modele;
 
 public class Magasinier {
+
+    //propriétés
     private int idMagasinier;
     private String NomMagasinier;
     private String TelMagasinier;
