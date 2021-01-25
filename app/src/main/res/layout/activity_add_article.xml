@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".vue.AddArticleActivity">
+
     <LinearLayout
         android:layout_width="391dp"
         android:layout_height="842dp"
         android:orientation="vertical"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="4dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="4dp">
 
         <LinearLayout
             android:layout_width="368dp"
@@ -41,13 +42,16 @@
         <LinearLayout
             android:layout_width="368dp"
             android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/quantité"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="quantité"></EditText>
+                android:ems="10"
+                android:hint="quantité"
+                android:inputType="number" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -59,7 +63,10 @@
                 android:id="@+id/stockMin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="stockMin"></EditText>
+                android:ems="10"
+                android:hint="stockMin"
+                android:inputType="number" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -71,8 +78,12 @@
                 android:id="@+id/stockMax"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="stockmax"></EditText>
+                android:ems="10"
+                android:hint="stockMax"
+                android:inputType="number" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="368dp"
             android:layout_height="50dp"
@@ -82,14 +93,19 @@
                 android:id="@+id/prix"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="prix"></EditText>
+                android:ems="10"
+                android:hint="prix"
+                android:inputType="number" />
+
         </LinearLayout>
 
         //uploadimage
+
         <LinearLayout
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <Button
@@ -107,11 +123,22 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+        <LinearLayout
+            android:layout_width="205dp"
+            android:layout_height="204dp"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnRetourAddArt"
+                android:layout_width="218dp"
+                android:layout_height="204dp"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                app:srcCompat="@drawable/home" />
+        </LinearLayout>
 
     </LinearLayout>
 

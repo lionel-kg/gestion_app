@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         suppArticle();
     }
 
+    // Ouverture des Activities correspondantes
+
     public void ecouteInventaire() {
         ((ImageView) findViewById(R.id.inventaire)).setOnClickListener(new Button.OnClickListener() {
             @Override
