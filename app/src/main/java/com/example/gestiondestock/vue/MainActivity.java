@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.gestiondestock.R;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         addFournisseur();
         addArticle();
         suppArticle();
+        suppFournisseur();
     }
 
     public void ecouteInventaire() {
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddFournisseurActivity.class);
                 startActivity(intent);
+                Toast.makeText(MainActivity.this,"insertion du fournisseur", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddArticleActivity.class);
                 startActivity(intent);
+                Toast.makeText(MainActivity.this,"insertion de l'article", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -112,10 +116,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 db.delete("article",null,null);
+                Toast.makeText(MainActivity.this,"les articles ont été supprimer", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
-
+    public void suppFournisseur() {
+        ((ImageView) findViewById(R.id.suppFournisseur)).setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.delete("fournisseur",null,null);
+                Toast.makeText(MainActivity.this,"les fournisseur ont été supprimer", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     /**
      * acces à la base de données
      */
@@ -123,15 +137,6 @@ public class MainActivity extends AppCompatActivity {
     public void openBd() {
         try {
             db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-
-            db.execSQL("create table magasinier("
-                    + "idMagasinier INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "nomMagasinier TEXT NOT NULL,"
-                    + "prenomMagasinier TEXT NOT NULL,"
-                    + "telMagasinier INTEGER,"
-                    + "adresseMagasinier TEXT,"
-                    + "cpMagasinier INTEGER,"
-                    + "villeMagasinier TEXT)");
 
             db.execSQL("create table article("
                     + "idArticle INTEGER PRIMARY KEY AUTOINCREMENT,"

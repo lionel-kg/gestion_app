@@ -43,6 +43,7 @@ public class CustomListAdapter  extends BaseAdapter {
         this.context = aContext;
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
+
     }
 
 
@@ -80,11 +81,11 @@ public class CustomListAdapter  extends BaseAdapter {
         holder.qteView.setText("qte: " + article.getQteArticle());
 
         try {
-            //db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+
             holder.delete.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    db.delete("article","id ="+article.getId_article(),null);
+                    getCount();
                 }
             });
         } catch (

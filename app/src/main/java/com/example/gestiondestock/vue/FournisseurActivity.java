@@ -10,10 +10,13 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +46,34 @@ public class FournisseurActivity extends AppCompatActivity {
         final ArrayAdapter<Fournisseur> adapter = new ArrayAdapter<Fournisseur>(FournisseurActivity.this,
                 android.R.layout.simple_list_item_1, fournisseurs);
         listView.setAdapter(adapter);
-
+        listView.setOnItemClickListener(showOption);
     }
+
+    AdapterView.OnItemClickListener showOption = new AdapterView.OnItemClickListener() {
+
+        /**
+         * Callback method to be invoked when an item in this AdapterView has
+         * been clicked.
+         * <p>
+         * Implementers can call getItemAtPosition(position) if they need
+         * to access the data associated with the selected item.
+         *
+         * @param parent   The AdapterView where the click happened.
+         * @param view     The view within the AdapterView that was clicked (this
+         *                 will be a view provided by the adapter)
+         * @param position The position of the view in the adapter.
+         * @param id       The row id of the item that was clicked.
+         */
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            Spinner option = new Spinner(getApplicationContext());
+            String[] items = new String[]{"edit", "delete"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(FournisseurActivity.this, android.R.layout.simple_spinner_dropdown_item, items);
+            option.setAdapter(adapter);
+        }
+    };
+
     /*public void createLinearView(String nom,Integer id){
         LinearLayout lv = ((LinearLayout) findViewById(R.id.container));
         int txt = lv.getOrientation();

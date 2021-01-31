@@ -7,15 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MySqlLiteOpenHelper extends SQLiteOpenHelper {
 
 
-    private String magasinier ="create table magasinier("
-            +"idMagasinier TEXT PRIMARY KEY,"
-            +"nomMagasinier TEXT NOT NULL,"
-            +"prenomMagasinier TEXT NOT NULL,"
-            +"telMagasinier INTEGER,"
-            +"adresseMagasinier TEXT,"
-            +"cpMagasinier INTEGER,"
-            +"villeMagasinier TEXT)";
-
     private String article="create table article("
             +"idArticle TEXT PRIMARY KEY,"
             +"libArticle TEXT NOT NULL,"
@@ -51,9 +42,9 @@ public class MySqlLiteOpenHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(article);
-        db.execSQL(fournisseur);
-        db.execSQL(magasinier);
+        //db.execSQL(article);
+        //db.execSQL(fournisseur);
+
     }
 
     /**

@@ -17,4 +17,6 @@ tools:context=".vue.InventaireActivity">
     </ListView>
 
 
+
+
 </RelativeLayout>

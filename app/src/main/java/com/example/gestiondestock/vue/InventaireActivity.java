@@ -14,9 +14,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -30,15 +33,6 @@ public class InventaireActivity extends AppCompatActivity {
     //ListView listView;
     SQLiteDatabase db;
     List<Article> articles = new ArrayList<Article>();
-        /*
-        listView = (ListView) findViewById(R.id.listView);
-        try {
-            get("http://localhost/php/testDb.php");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        downloadJSON("http://localhost/php/testDb.php");
-         */
 
 
     @SuppressLint("WrongConstant")
@@ -55,24 +49,13 @@ public class InventaireActivity extends AppCompatActivity {
         {
         }
         ListView listView = (ListView)findViewById(R.id.listView);
-
-       // delete();
-
-
-        //android.R.layout.simple_list_item_1 est une vue disponible de base dans le SDK android,
-        //Contenant une TextView avec comme identifiant "@android:id/text1"
-
-        /*final ArrayAdapter<Article> adapter = new ArrayAdapter<Article>(InventaireActivity.this,
-                android.R.layout.simple_list_item_1, articles);*/
         listView.setAdapter(new CustomListAdapter(this,articles));
 
-        //Toast.makeText(InventaireActivity.this,listView.getItemIdAtPosition(1),Toast.LENGTH_SHORT);
     }
 
-
-    /*public void delete(int id){
+    public void delete(int id){
         db.delete("article","id ="+id,null);
-    }*/
+    }
 
     public void showArticle(){
         Cursor c=db.rawQuery("SELECT * FROM Article",null);
@@ -87,71 +70,4 @@ public class InventaireActivity extends AppCompatActivity {
     }
 }
 
-    /*
-    private void downloadJSON(final String urlWebService) {
 
-        class DownloadJSON extends AsyncTask<Void, Void, String> {
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                if (!TextUtils.isEmpty(s) && s!=null) {
-                    //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-                    try {
-                        loadIntoListView(s);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            protected String doInBackground(Void... voids) {
-                try {
-                    URL url = new URL(urlWebService);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    StringBuilder sb = new StringBuilder();
-                    BufferedReader bufferedReader;
-                    InputStreamReader inputStreamReader =new InputStreamReader(con.getInputStream());
-                    bufferedReader = new BufferedReader(inputStreamReader);
-                    String json;
-                    while ((json = bufferedReader.readLine()) != null) {
-                        sb.append(json + "\n");
-                    }
-                    return sb.toString().trim();
-                } catch (Exception e) {
-                    return null;
-                }
-            }
-        }
-        DownloadJSON getJSON = new DownloadJSON();
-        getJSON.execute();
-    }
-
-    private void loadIntoListView(String json) throws JSONException {
-        JSONArray jsonArray = new JSONArray(json);
-        String[] stocks = new String[jsonArray.length()];
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject obj = jsonArray.getJSONObject(i);
-            stocks[i] = obj.getString("libArticle") + " " + obj.getString("qteArticle");
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stocks);
-        listView.setAdapter(arrayAdapter);
-    }
-
-private final OkHttpClient client = new OkHttpClient();
-
-    public String get(String url) throws IOException {
-        // Prepare the request.
-        Request request = new Request.Builder().url(url).build();
-        // Execute the request.
-        Response response = client.newCall(request).execute();
-        // Get the result.
-        return response.body().string();
-    }*/
