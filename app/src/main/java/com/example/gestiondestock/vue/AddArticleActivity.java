@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -32,7 +33,7 @@ public class AddArticleActivity extends AppCompatActivity {
     SQLiteDatabase db;
     private Button buttonChoose;
     private Button buttonUpload;
-    private ImageView imageView;
+    private ImageButton btnRetourAddArt;
     //init firebaseStorage
     private FirebaseStorage storage;
     //init storage reference
@@ -57,13 +58,14 @@ public class AddArticleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_article);
+        ecouteRetourMenu1();
 
         //requestStoragePermission();
 
         //Initializing views
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        btnRetourAddArt = (ImageButton) findViewById(R.id.btnRetourAddArt);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
@@ -99,6 +101,18 @@ public class AddArticleActivity extends AppCompatActivity {
     }
 
     /**
+     * retour au menu
+     */
+    private void ecouteRetourMenu1(){
+        ((ImageButton)findViewById(R.id.btnRetourAddArt)).setOnClickListener(new ImageButton.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(AddArticleActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
      * Dispatch incoming result to the correct fragment.
      *
      * @param requestCode
@@ -110,7 +124,7 @@ public class AddArticleActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
             imageUri = data.getData();
-            imageView.setImageURI(imageUri);
+            //imageView.setImageURI(imageUri);
 
         }
     }

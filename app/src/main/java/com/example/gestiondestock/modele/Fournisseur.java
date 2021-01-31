@@ -2,6 +2,7 @@ package com.example.gestiondestock.modele;
 
 public class Fournisseur {
 
+    //propriétés
     private int idFournisseur;
     private String nomFournisseur;
     private String prenomFournisseur;
@@ -12,6 +13,14 @@ public class Fournisseur {
     private String villeFournisseur;
     private String description;
 
+    /**
+     * Création du profil fournisseur
+     * @param nomFournisseur
+     * @param telFournisseur
+     * @param adresseFournisseur
+     * @param cpFournisseur
+     * @param villeFournisseur
+     */
     public Fournisseur(String nomFournisseur, String prenomFournisseur, int telFournisseur, String emailFournisseur, String adresseFournisseur, int cpFournisseur, String villeFournisseur, String description) {
         this.nomFournisseur = nomFournisseur;
         this.prenomFournisseur = prenomFournisseur;
@@ -22,6 +31,11 @@ public class Fournisseur {
         this.villeFournisseur = villeFournisseur;
         this.description = description;
     }
+
+    /**
+     *  Création et récupération de ses propriétés
+     * @return les données
+     */
     public int getIdFournisseur() {
         return idFournisseur;
     }

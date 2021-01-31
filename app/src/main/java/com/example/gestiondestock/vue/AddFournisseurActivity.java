@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,8 @@ public class AddFournisseurActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fournisseur);
+        ecouteRetourMenu2();
+
         try {
             db = openOrCreateDatabase("gestion_app", SQLiteDatabase.CREATE_IF_NECESSARY, null);
 
@@ -31,6 +34,18 @@ public class AddFournisseurActivity extends AppCompatActivity {
         } catch (SQLException e)
         {
         }
+    }
+
+    /**
+     * retour au menu
+     */
+    private void ecouteRetourMenu2(){
+        ((ImageButton)findViewById(R.id.btnRetourAddFour)).setOnClickListener(new ImageButton.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(AddFournisseurActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     public void add(){
         EditText nom = (EditText) findViewById(R.id.nomFour);
