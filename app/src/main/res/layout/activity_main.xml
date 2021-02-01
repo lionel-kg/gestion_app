@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center|center_horizontal"
+    android:gravity="center_horizontal|center_vertical"
     tools:context=".vue.MainActivity">
 
     <LinearLayout
@@ -34,20 +35,21 @@
                         android:id="@+id/inventaire"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/inventaire"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:src="@drawable/inventaire" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/addArticle"
@@ -57,17 +59,18 @@
                             android:src="@drawable/ajout" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
                         <ImageView
                             android:id="@+id/suppArticle"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/supp"
-                            />
+                            android:src="@drawable/supp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -81,44 +84,51 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+
                     <ImageView
                         android:id="@+id/transaction"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/transaction"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:src="@drawable/transaction" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="end"
-                            android:src="@drawable/ajout"/>
+                            android:src="@drawable/ajout" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/supp"/>
+                            android:src="@drawable/supp" />
 
                     </LinearLayout>
 
@@ -139,6 +149,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -150,14 +161,16 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
                         android:orientation="vertical">
+
                         <ImageView
                             android:id="@+id/fournisseur"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/fournisseurs"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:src="@drawable/fournisseurs" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -169,23 +182,26 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:orientation="vertical">
+
                             <ImageView
                                 android:id="@+id/addFournisseur"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:layout_gravity="end"
-                                android:src="@drawable/ajout"/>
+                                android:src="@drawable/ajout" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
                             <ImageView
                                 android:id="@+id/suppFournisseur"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/supp"/>
+                                android:src="@drawable/supp" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -198,19 +214,20 @@
                 android:layout_weight="1"
                 android:orientation="vertical"></LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
 
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="60dp"
+                android:layout_marginLeft="60dp"
+                android:text="BIENVENUE SUR L'APP DE GESTION DE STOCK" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

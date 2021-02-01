@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddFournisseurActivity.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this,"insertion du fournisseur", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddArticleActivity.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this,"insertion de l'article", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -119,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 db.delete("article",null,null);
                 Toast.makeText(MainActivity.this,"les articles ont été supprimer", Toast.LENGTH_SHORT).show();
-
             }
         });
     }

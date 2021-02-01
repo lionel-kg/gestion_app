@@ -53,6 +53,7 @@ public class AddArticleActivity extends AppCompatActivity {
     //Uri to store the image uri
     private Uri imageUri;
 
+
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
